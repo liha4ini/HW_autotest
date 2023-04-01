@@ -1,16 +1,26 @@
 .button {
+    position: relative;
+    margin: 10px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .disabled {
+    opacity: 0.5;
 }
 
 .secondary {
+    background: #0066cc;
 }
 
 .default {
+    background: #003300;
+    color: #99ff99;
+    outline: none;
 }
 
 .red {
+    background: red;
 }
 
 .default:hover {
