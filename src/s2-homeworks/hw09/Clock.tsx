@@ -12,7 +12,7 @@ function Clock() {
     const start = () => {
         // пишут студенты // запустить часы (должно отображаться реальное время, а не +1)
         // сохранить ид таймера (https://learn.javascript.ru/settimeout-setinterval#setinterval)
-        stop()
+        // stop()
 
         const id: number = +setInterval(() => {
             setDate(new Date())
@@ -32,15 +32,40 @@ function Clock() {
         setShow(false)
     }
 
-    // const stringTime = 'date->time' || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
-    // const stringDate = 'date->date' || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
+    function getCurrentTime() {
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    const stringTime = date?.toLocaleTimeString() || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
-    const stringDate = date?.toLocaleDateString() || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function getCurrentDate() {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return `${day}.${month}.${year}`;
+    }
+
+    function getCurrentDayOfWeek() {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayOfWeek = daysOfWeek[date.getDay()];
+        return dayOfWeek;
+    }
+
+    function getCurrentMonth() {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const month = months[date.getMonth()];
+        return month;
+    }
+
+    const stringTime = getCurrentTime() || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
+    const stringDate = getCurrentDate() || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
 
     // день недели на английском, месяц на английском (https://learn.javascript.ru/intl#intl-datetimeformat)
-    const stringDay = 'date->day' || <br/> // пишут студенты
-    const stringMonth = 'date->month' || <br/> // пишут студенты
+    const stringDay = getCurrentDayOfWeek() || <br/> // пишут студенты
+    const stringMonth = getCurrentMonth() || <br/> // пишут студенты
 
     return (
         <div className={s.clock}>
@@ -75,6 +100,7 @@ function Clock() {
                 <SuperButton
                     id={'hw9-button-start'}
                     disabled={timerId ? true : false} // пишут студенты // задизэйблить если таймер запущен
+                    // disabled={false} // пишут студенты // задизэйблить если таймер запущен
                     onClick={start}
                 >
                     start
@@ -82,6 +108,7 @@ function Clock() {
                 <SuperButton
                     id={'hw9-button-stop'}
                     disabled={!timerId ? true : false} // пишут студенты // задизэйблить если таймер не запущен
+                    // disabled={false} // пишут студенты // задизэйблить если таймер не запущен
                     onClick={stop}
                 >
                     stop
